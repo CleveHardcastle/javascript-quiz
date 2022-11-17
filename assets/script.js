@@ -6,44 +6,46 @@ var questionSection = document.getElementById("questionSection");
 var question = document.querySelector("#question");
 var answer1 = document.querySelector("#answer1");
 var answer2 = document.querySelector("#answer2");
-var answer3 = document.querySelector("#answer3");
-var answer4 = document.querySelector("#answer4");
+var button = document.querySelector(".button");
 var questionList = ["Is CSS dumb?", "test"];
-var answerList1 = ["yes", "no"];
-var answerList2 = ["no", "yes"];
+var questionId = 0;
+var answersList = [['yes', 'no'], ['no', 'yes']]
+var answers = answersList[questionId]
+answer1.value = answers[0]
+answer2.value = answers[1]
 
+
+function setTime() {
+  var timer = setInterval(function () {
+    secondsLeft--;
+    secondsRemain.textContent = secondsLeft;
+    
+    if (secondsLeft === 0) {
+      clearInterval(timer);
+      secondsLeft = 75;
+    }
+  }, 1000);
+}
+
+function setQuestionText() {
+  question.textContent = questionList[questionId];
+}
+
+
+function setAnswerText() {
+  answer1.textContent = answers[0];
+  answer2.textContent = answers[1];
+}
 
 
 function startGame() {
   home.style.display = "none";
-  questionSection.removeAttribute("class");
-
-  function setTime() {
-    var timer = setInterval(function () {
-      // secondsLeft--;
-      secondsRemain.textContent = secondsLeft;
-
-      if (secondsLeft === 0) {
-        clearInterval(timer);
-        secondsLeft = 75;
-      }
-    }, 1000);
-  }
+  questionSection.style.display = "inline-block";
   setTime();
-
-  document.getElementById("questionSection").style.display = "inline-block";
-  for (i = 0; i < questionList.length; i++) {
-    question.textContent = questionList[i];
-    document.querySelector(".button").addEventListener("click", function() {
-      i++;
-      question.textContent = questionList[i];
-    })
-    for (i = 0; i < answerList1.length; i++) {
-      answer1.textContent = answerList1[i];
-    }
-    for (i = 0; i < answerList2.length; i++) {
-      answer2.textContent = answerList2[i];
-    }      
-  }
+  setQuestionText();
+  setAnswerText();
+  setAnswerText();
 }
+
 start.addEventListener("click", startGame);
+

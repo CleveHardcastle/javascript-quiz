@@ -1,5 +1,5 @@
 var secondsRemain = document.querySelector("#time");
-var secondsLeft = 75;
+var secondsLeft = 30;
 var start = document.querySelector("#start");
 var home = document.querySelector("#home");
 var questionSection = document.getElementById("questionSection");
@@ -7,7 +7,8 @@ var question = document.querySelector("#question");
 var answer1 = document.querySelector("#answer1");
 var answer2 = document.querySelector("#answer2");
 var button = document.querySelector(".button");
-var questionList = ["Is CSS dumb?", "test"];
+var endScreen = document.querySelector("#endScreen");
+var questionList = ["Is CSS dumb?", "Did I try my best here?",];
 var questionId = 0;
 var answersList = [['yes', 'no'], ['no', 'yes']]
 var answers = answersList[questionId]
@@ -22,7 +23,7 @@ function setTime() {
     
     if (secondsLeft === 0) {
       clearInterval(timer);
-      secondsLeft = 75;
+      secondsLeft = 30;
     }
   }, 1000);
 }
@@ -44,8 +45,21 @@ function startGame() {
   setTime();
   setQuestionText();
   setAnswerText();
-  setAnswerText();
+}
+
+function endingScreen() {
+  endScreen.style.display = "flex";
 }
 
 start.addEventListener("click", startGame);
+button.addEventListener("click", function(){
+  if (questionId == questionList.length-1) {
+    questionSection.style.display = "none";
+    endingScreen();
+  } else {
+    questionId++;
+    setQuestionText();
+    setAnswerText();
+  }
+});
 
